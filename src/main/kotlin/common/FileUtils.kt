@@ -9,3 +9,6 @@ fun readLinesHavingSingleValue(fileName: String) = getFile(fileName).readLines()
 fun readLinesHavingTwoValues(fileName: String, delimiter: String) = getFile(fileName).readLines()
     .map { it.split(delimiter) }
     .map { line -> line.let { col -> col[0] to col[1] } }
+
+fun readLines(fileName: String, delimiter: String = " ") = getFile(fileName).readLines()
+    .map { it.split(delimiter) }
