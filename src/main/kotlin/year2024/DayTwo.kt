@@ -10,6 +10,11 @@ class DayTwo {
         val records = readLines(fileName).map { it.toRecord() }
         return records.map { record -> record.isSafe() }.count { it }
     }
+
+    fun secondSolution(fileName: String): Int {
+        val records = readLines(fileName).map { it.toRecord() }
+        return records.map { record -> record.isAnySafe() }.count{ it }
+    }
 }
 
 data class Record(val values: List<Int>) {
@@ -29,6 +34,15 @@ data class Record(val values: List<Int>) {
             end++
         }
         return true
+    }
+
+    fun isAnySafe(): Boolean {
+        if (this.isSafe()) return true
+        this.values.forEachIndexed { index, _ ->
+            val alternativeRecord = values.subList(0, index).plus(values.subList(index + 1, values.size)).toRecordInt()
+            if (alternativeRecord.isSafe()) return true
+        }
+        return false
     }
 
     private fun isIncreasingOrDecreasing(startValue: Int, middleValue: Int, endValue: Int): Boolean {
@@ -51,4 +65,8 @@ data class Record(val values: List<Int>) {
 
 fun List<String>.toRecord(): Record {
     return Record(values = this.map { it.toInt() })
+}
+
+fun List<Int>.toRecordInt(): Record {
+    return Record(values = this)
 }
