@@ -1,19 +1,19 @@
 package com.github.juanmougan.advent.year2024
 
-import com.github.juanmougan.advent.common.readLines
+import com.github.juanmougan.advent.common.readLinesWithDelimiter
 import kotlin.math.abs
 
 const val SAFETY_THRESHOLD = 3
 
 class DayTwo {
     fun firstSolution(fileName: String): Int {
-        val records = readLines(fileName).map { it.toRecord() }
+        val records = readLinesWithDelimiter(fileName).map { it.toRecord() }
         return records.map { record -> record.isSafe() }.count { it }
     }
 
     fun secondSolution(fileName: String): Int {
-        val records = readLines(fileName).map { it.toRecord() }
-        return records.map { record -> record.isAnySafe() }.count{ it }
+        val records = readLinesWithDelimiter(fileName).map { it.toRecord() }
+        return records.map { record -> record.isAnySafe() }.count { it }
     }
 }
 
