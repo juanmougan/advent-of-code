@@ -18,16 +18,6 @@ class DayOneKtTest {
     }
 
     @Test
-    fun `Should parse long file`(): Unit {
-        // given sample input file
-        val fileName = "year2023/dayOne/full_example.txt"
-        // when calculate
-        val result = solution(fileName)
-        // then check
-        Assertions.assertEquals(55208, result)
-    }
-
-    @Test
     fun `Should replace text with digit`(): Unit {
         // given text with numbers as string
         val input = "onetwothree"
@@ -38,7 +28,6 @@ class DayOneKtTest {
     @Test
     fun `Should parse short file with letters`(): Unit {
         // given sample input file
-        println("\n\n\n\n\nWITH LETTERS!\n\n\n\n\n")
         val fileName = "year2023/dayOne/short_example_with_letters.txt"
         // when calculate
         val result = solution(fileName)

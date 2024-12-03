@@ -25,21 +25,23 @@ fun String.firstAndLastDigits(): Pair<Int, Int> {
 }
 
 fun String.textToDigit(): String {
-    val mapper = mapOf(
-        "zero" to "0",
-        "one" to "1",
-        "two" to "2",
-        "three" to "3",
-        "four" to "4",
-        "five" to "5",
-        "six" to "6",
-        "seven" to "7",
-        "eight" to "8",
-        "nine" to "9"
+    val numberMap = mapOf(
+        "zero" to "0", "one" to "1", "two" to "2", "three" to "3",
+        "four" to "4", "five" to "5", "six" to "6", "seven" to "7",
+        "eight" to "8", "nine" to "9"
     )
-    var output = this
-    for ((key, value) in mapper) {
-        output = output.replace(key, value)
+
+    val regex = Regex(numberMap.keys.joinToString("|"))
+
+    val result = StringBuilder(this)
+    var match = regex.find(result)
+
+    while (match != null) {
+        val digit = numberMap[match.value] ?: ""
+        result.replace(match.range.first, match.range.last + 1, digit)
+        match = regex.find(result) // Will be null as soon as I don't have new matches
     }
-    return output
+
+    // Remove remaining non-numeric characters
+    return result.filter { it.isDigit() }.toString()
 }
