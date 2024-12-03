@@ -4,11 +4,13 @@ import java.io.File
 
 private fun getFile(fileName: String) = File(ClassLoader.getSystemResource(fileName).file)
 
-fun readLinesHavingSingleValue(fileName: String) = getFile(fileName).readLines()
+fun readLines(fileName: String) = getFile(fileName).readLines()
 
-fun readLinesHavingTwoValues(fileName: String, delimiter: String) = getFile(fileName).readLines()
+fun readLinesHavingSingleValue(fileName: String) = readLines(fileName)
+
+fun readLinesHavingTwoValues(fileName: String, delimiter: String) = readLines(fileName)
     .map { it.split(delimiter) }
     .map { line -> line.let { col -> col[0] to col[1] } }
 
-fun readLines(fileName: String, delimiter: String = " ") = getFile(fileName).readLines()
+fun readLinesWithDelimiter(fileName: String, delimiter: String = " ") = readLines(fileName)
     .map { it.split(delimiter) }
