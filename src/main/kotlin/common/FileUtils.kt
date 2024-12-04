@@ -2,7 +2,7 @@ package com.github.juanmougan.advent.common
 
 import java.io.File
 
-private fun getFile(fileName: String) = File(ClassLoader.getSystemResource(fileName).file)
+fun getFile(fileName: String) = File(ClassLoader.getSystemResource(fileName).file)
 
 fun readLines(fileName: String) = getFile(fileName).readLines()
 
