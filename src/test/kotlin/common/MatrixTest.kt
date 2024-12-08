@@ -2,6 +2,7 @@ package common
 
 import com.github.juanmougan.advent.common.getFile
 import com.github.juanmougan.advent.common.toMatrix
+import com.github.juanmougan.advent.common.toMatrixWithoutDelimiter
 import io.kotest.core.spec.style.ShouldSpec
 import io.kotest.matchers.collections.shouldContainExactly
 import io.kotest.matchers.collections.shouldContainExactlyInAnyOrder
@@ -74,4 +75,9 @@ class MatrixTest : ShouldSpec({
         val matrix = getFile("common/4x4_matrix_row_reversed.txt").toMatrix()
         matrix.findOccurrencesInRows(listOf("X", "M", "A", "S")) shouldBe 1
     }
+
+//    should("find x-mas rows diagonally") {
+//        val matrix = getFile("common/3x3_diagonal.txt").toMatrixWithoutDelimiter()
+//        matrix.findAllDiagonally(listOf("M", "A", "S")) shouldBe 1
+//    }
 })

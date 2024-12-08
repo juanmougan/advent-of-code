@@ -94,6 +94,23 @@ class Matrix<T>(private val data: List<List<T>>) {
             diagonal.windowed(sequence.size).count { it == sequence || it == sequence.asReversed() }
         }
     }
+
+//    fun <T> findAllDiagonally(sequence: List<T>): Int {
+//        val diagonals = diagonals()
+//        return diagonals.windowed(sequence.size).map { it.hasMatchingPerpendicularDiagonal(sequence) }.count()
+//    }
+
+    // TODO for each diagonal retrieved, find the perpendicular diagonal. They should contain the same value, the sequence
+//    private fun <T> List<List<T>>.hasMatchingPerpendicularDiagonal(sequence: List<T>): List<List<T>> {
+//        val diagonal = this.filter { diagonal -> diagonal == sequence }
+//        val diagonalReversed = this.filter { diagonal -> diagonal == sequence.asReversed() }
+//        return diagonal.middleElement()
+//    }
+//
+//    fun <T> List<T>.middleElement(): T {
+//        if (this.size.mod(2) == 0) throw IllegalArgumentException("List must be odd in order to have a middle element")
+//        return this.get(this.size / 2)
+//    }
 }
 
 fun <T> Matrix<T>.rotateClockwise(): Matrix<T> {
