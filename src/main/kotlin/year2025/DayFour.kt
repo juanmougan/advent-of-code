@@ -54,6 +54,60 @@ class Grid private constructor(
         }
     }
 
+    /**
+     * Counts the number of accessible ROLL cells in the grid.
+     * A ROLL cell is accessible if it has less than 4 adjacent ROLL cells.
+     * Adjacent cells include all 8 directions (including diagonals).
+     * Only the non-padded portion of the grid is checked.
+     */
+    fun countAccessibleRolls(): Int {
+        var accessibleCount = 0
+
+        // Iterate over non-padded cells (skip first and last row/column)
+        for (row in 1 until height - 1) {
+            for (col in 1 until width - 1) {
+                // Only check ROLL cells
+                if (cells[row][col] == Cell.ROLL) {
+                    // Count adjacent ROLL cells
+                    val adjacentRolls = countAdjacentRolls(row, col)
+
+                    // If less than 4 adjacent rolls, this cell is accessible
+                    if (adjacentRolls < 4) {
+                        accessibleCount++
+                    }
+                }
+            }
+        }
+
+        return accessibleCount
+    }
+
+    /**
+     * Counts the number of ROLL cells adjacent to the given position.
+     * Checks all 8 directions including diagonals.
+     */
+    private fun countAdjacentRolls(row: Int, col: Int): Int {
+        var count = 0
+
+        // Check all 8 adjacent positions
+        for (dRow in -1..1) {
+            for (dCol in -1..1) {
+                // Skip the center cell (the cell itself)
+                if (dRow == 0 && dCol == 0) continue
+
+                val adjacentRow = row + dRow
+                val adjacentCol = col + dCol
+
+                // Check if the adjacent cell is a ROLL
+                if (cells[adjacentRow][adjacentCol] == Cell.ROLL) {
+                    count++
+                }
+            }
+        }
+
+        return count
+    }
+
     companion object {
         /**
          * Reads a grid from a file and adds padding around it.
@@ -109,7 +163,7 @@ class Grid private constructor(
 /**
  * Example usage
  */
-fun main() {
+fun oldMain() {
     // Create a sample file
     val testFile = File("test_grid.txt")
     testFile.writeText("""
@@ -133,4 +187,9 @@ fun main() {
 
     // Cleanup
     testFile.delete()
+}
+
+fun main() {
+    val grid = Grid.fromFile("src/main/resources/year2025/day4/input.txt")
+    println("Accessible rows: ${grid.countAccessibleRolls()}")
 }
