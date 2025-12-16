@@ -108,6 +108,27 @@ class Grid private constructor(
         return count
     }
 
+    fun removeAllPossibleRolls(): Int {
+        var accessibleRows = countAccessibleRolls()
+        var countRemoved = 0
+        while (accessibleRows > 0) {
+            for (row in 1 until height - 1) {
+                for (col in 1 until width - 1) {
+                    // Only check ROLL cells
+                    if (cells[row][col] == Cell.ROLL) {
+                        val isAccessible = countAdjacentRolls(row, col) < 4
+                        if (isAccessible) {
+                            cells[row][col] = Cell.EMPTY    // Mark as empty for future iterations
+                            countRemoved++
+                        }
+                    }
+                }
+            }
+           accessibleRows = countAccessibleRolls()
+        }
+        return countRemoved
+    }
+
     companion object {
         /**
          * Reads a grid from a file and adds padding around it.
@@ -163,7 +184,7 @@ class Grid private constructor(
 /**
  * Example usage
  */
-fun oldMain() {
+fun exampleParsing() {
     // Create a sample file
     val testFile = File("test_grid.txt")
     testFile.writeText("""
@@ -191,5 +212,6 @@ fun oldMain() {
 
 fun main() {
     val grid = Grid.fromFile("src/main/resources/year2025/day4/input.txt")
-    println("Accessible rows: ${grid.countAccessibleRolls()}")
+    println("Accessible rolls: ${grid.countAccessibleRolls()}")
+    println("Rolls removed: ${grid.removeAllPossibleRolls()}")
 }
